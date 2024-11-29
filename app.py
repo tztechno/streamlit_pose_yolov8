@@ -8,30 +8,22 @@ import glob
 st.title("YOLOv8 Pose Detection")
 
 upload_dir = "./input"
-output_dir = "./output"
-
+output_dir= "/runs/pose/predict"
 os.makedirs(upload_dir, exist_ok=True)
-os.makedirs(output_dir, exist_ok=True)
-
 uploaded_files = st.file_uploader("Upload images", type=["png", "jpg", "jpeg"], accept_multiple_files=True)
 
 if uploaded_files:
-
     for uploaded_file in uploaded_files:
         with open(os.path.join(upload_dir, uploaded_file.name), "wb") as f:
             f.write(uploaded_file.read())
 
     st.success("Images uploaded successfully!")
-
     model = YOLO("yolov8x-pose.pt")  
-
     st.write("Processing images...")
     for img_path in glob.glob(f"{upload_dir}/*"):
         results = model(img_path, conf=0.1, show=False)  
-        results.save(output_dir) 
         
     st.write("Processed images:")
-
     processed_images = glob.glob(f"{output_dir}/*")
     num_columns = 2  
     columns = st.columns(num_columns)
