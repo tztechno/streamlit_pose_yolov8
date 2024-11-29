@@ -25,7 +25,7 @@ if uploaded_files:
         
     st.write("Processed images:")
     processed_images = glob.glob(f"{output_dir}/*")
-    num_columns = 2  
+    num_columns = 1  
     columns = st.columns(num_columns)
     
     for i, img_path in enumerate(processed_images):
